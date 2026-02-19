@@ -40,6 +40,7 @@ resources = {
     "water": 300,
     "milk": 200,
     "coffee": 100,
+    "money": 0, 
 }
 
 #TODO 1: Prompt user by asking “ What would you like? (espresso/latte/cappuccino)"
@@ -49,13 +50,12 @@ while another:
         another = False
     elif user_choice == "report":
         print(resources)
-    elif resources["water"] <= MENU[user_choice]["ingredients"]["water"]:
+    elif resources["water"] < MENU[user_choice]["ingredients"].get("water", 0): 
         print("Sorry there is not enough water.")
-
-    elif resources["milk"] <= MENU[user_choice]["ingredients"]["milk"]:
+    elif resources["milk"] < MENU[user_choice]["ingredients"].get("milk", 0): 
         print("Sorry there is not enough milk.")
-    elif resources["coffee"] <= MENU[user_choice]["ingredients"]["milk"]:
-        print("Sorry there is not enough coffe.")
+    elif resources["coffee"] < MENU[user_choice]["ingredients"].get("coffee", 0): 
+        print("Sorry there is not enough coffee.")
     else:
         print("Please insert coins.")
         quarter_coins = int(input("how many quarters? "))
@@ -63,6 +63,7 @@ while another:
         nickle_coins = int(input("how many nickles? "))
         pennie_coins = int(input("how many pennies? "))
         total_coin = sum_coins(quarter=quarter_coins,dime= dime_coins,nickle=nickle_coins,pennie=pennie_coins)
+        
 #TODO 2:  Check that the user has inserted enough money to purchase the drink they selected.
 
         if total_coin < MENU[user_choice]["cost"]:
@@ -77,7 +78,6 @@ while another:
             resources["milk"] -= MENU[user_choice]["ingredients"]["milk"]
             resources["coffee"] -= MENU[user_choice]["ingredients"]["coffee"]
             resources["money"] = 0
-            resources["money"] += MENU[user_choice]["cost"]
             resources["money"] += MENU[user_choice]["cost"]
 
 
